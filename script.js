@@ -10,8 +10,36 @@ const observer = new IntersectionObserver((entries) => {
 
 fadeElements.forEach(el => observer.observe(el));
 
-// Form submission (placeholder)
+// Hamburger menu toggle
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    hamburger.querySelector('i').classList.toggle('fa-bars');
+    hamburger.querySelector('i').classList.toggle('fa-times');
+});
+
+// Close menu when clicking a nav link
+navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        hamburger.querySelector('i').classList.add('fa-bars');
+        hamburger.querySelector('i').classList.remove('fa-times');
+    });
+});
+
+// Form submission with basic validation
 document.querySelector('.contact-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('Message sent! (This is a placeholder)');
+    const name = document.querySelector('.contact-form input[type="text"]').value;
+    const email = document.querySelector('.contact-form input[type="email"]').value;
+    const message = document.querySelector('.contact-form textarea').value;
+
+    if (name && email && message) {
+        alert('Message sent successfully! (This is a placeholder)');
+        document.querySelector('.contact-form').reset();
+    } else {
+        alert('Please fill out all fields.');
+    }
 });
